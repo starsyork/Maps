@@ -1,10 +1,28 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Untitled Document</title>
+    <script type="text/javascript" src="script/script.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_8iOlfqwAKLzkbUnXTVlThYvMLvsgNg&callback=initMap"></script>
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <meta charset="UTF-8">
+    <title>Maps</title>
 </head>
 
 <body>
+    <div class="container">
+        <div class="options-box">
+            <h1>Find your place</h1>
+            <div>
+                <input type="button" id="show-listings" value="Show Listings">
+                <input type="button" id="hide-listings" value="Hide Listings">
+            </div>
+        </div>
+        <div id='map'></div>
+    </div>
 </body>
+
 </html>
+
+
+
