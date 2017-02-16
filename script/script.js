@@ -13,6 +13,10 @@ function initMap(){               //init map
 	// 	map:map, 
 	// 	title: 'Hello World'           //title will show when cursor hover
 	// });
+	var defaultIcon = makeMarkerIcon('0091ff');
+	var highlightedIcon = makeMarkerIcon('FFFF24');
+
+
 
 	var locations = [{title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
 		          {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
@@ -32,14 +36,24 @@ function initMap(){               //init map
 			map: map,
 			position: position,
 			title: title,
+			icon: defaultIcon,
 			animation: google.maps.Animation.DROP,
 			id:i        //i not 1
 		});
+
 		markers.push(marker);
 		
 		marker.addListener('click', function(){ 
 			populateInfoWindow(this, largeInfowindow);  
 		});
+
+		marker.addListener('mouseover', function() {
+            this.setIcon(highlightedIcon);
+         });
+
+        marker.addListener('mouseout', function() {
+            this.setIcon(defaultIcon);
+         });
 	}
 	document.getElementById('show-listings').addEventListener('click',showListings);
 	document.getElementById('hide-listings').addEventListener('click',hideListings);
@@ -90,6 +104,17 @@ function populateInfoWindow(marker, infowindow) {
             infowindow.setMarker = null;
         });
     }
+}
+
+function makeMarkerIcon(markerColor) {
+        var markerImage = new google.maps.MarkerImage(
+          'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+          '|40|_|%E2%80%A2',
+          new google.maps.Size(21, 34),
+          new google.maps.Point(0, 0),
+          new google.maps.Point(10, 34),
+          new google.maps.Size(21,34));
+        return markerImage;
 }
 
 
