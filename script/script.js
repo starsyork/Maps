@@ -3,9 +3,10 @@ var markers = [];
 
 function initMap(){               //init map
 	map = new google.maps.Map(document.getElementById('map'),{
-		center: {lat: 40.7413549, lng: -73.9980244},
-		zoom:13
+		center: {lat: 37.4, lng: -121.8},
+		zoom:10
 	});
+
 
 	// var myPlace = {lat:40.6502, lng:-74.1322};             //here is the plave I wanna show
 	// var marker = new google.maps.Marker({        //Add a marker to the place
@@ -18,15 +19,11 @@ function initMap(){               //init map
 
 
 
-	var locations = [{title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-		          {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-		          {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-		          {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-		          {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-		          {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+	var locations = [{title: 'University of California Santa Cruz', location: {lat: 36.9738893, lng: -122.0771595}},
+		       
 					];
 	var largeInfowindow = new google.maps.InfoWindow();
-	var bounds = new google.maps.LatLngBounds();
+	//var bounds = new google.maps.LatLngBounds();
 
 	for (var i = 0; i < locations.length; i++) {
 		var position = locations[i].location;
@@ -61,13 +58,13 @@ function initMap(){               //init map
 
 
 function showListings() {
-      var bounds = new google.maps.LatLngBounds();
+      //var bounds = new google.maps.LatLngBounds();
       // Extend the boundaries of the map for each marker and display the marker
       for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(map);
-        bounds.extend(markers[i].position);
+        //bounds.extend(markers[i].position);
       }
-      map.fitBounds(bounds);
+      //map.fitBounds(bounds);
 }
 
 function hideListings() {
@@ -95,16 +92,28 @@ function hideListings() {
 // }
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-        infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
-        infowindow.open(map, marker);
-        // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick', function() {
-            infowindow.setMarker = null;
-        });
-    }
+    var wikiurl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
+    $.ajax({
+        url: wikiurl,
+        dataType: "jsonp",
+        success: function(response) {
+            var articleList = response[1];
+            articleStr = articleList[0];
+            var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+            if (infowindow.marker != marker) {
+                infowindow.marker = marker;
+                infowindow.setContent('<div>' + marker.title + '</div>' + '<li><a href = "' + url + '">' + articleStr + '</a></li>');
+                infowindow.open(map, marker);
+                // Make sure the marker property is cleared if the infowindow is closed.
+               
+            }
+        }
+    });
+     infowindow.addListener('closeclick', function() {
+                    infowindow.setMarker = null;
+                });
 }
+
 
 function makeMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
