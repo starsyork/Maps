@@ -1,5 +1,5 @@
 # Missions
-1. add a full-screen map
+~~1. add a full-screen map~~
 2. Write code required to display map markers identifying at least 5 locations
 3. Implement a list view
 4. Provide a filter option that uses an input field to filter both the list view and the map markers displayed by default on load. 

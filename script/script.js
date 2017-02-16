@@ -14,12 +14,19 @@ function initMap(){               //init map
 	// 	map:map, 
 	// 	title: 'Hello World'           //title will show when cursor hover
 	// });
-	var defaultIcon = makeMarkerIcon('0091ff');
+	var defaultIcon = makeMarkerIcon('FF4040');
 	var highlightedIcon = makeMarkerIcon('FFFF24');
 
 
 
-	var locations = [{title: 'University of California Santa Cruz', location: {lat: 36.9738893, lng: -122.0771595}},
+	var locations = [{title: 'University of California, Santa Cruz', location: {lat: 36.9738893, lng: -122.0771595}},
+					{title: 'San Jose State University', location: {lat: 37.335103, lng:-121.877357}},
+					{title: 'Santa Clara University', location: {lat: 37.349649,  lng: -121.939213}},
+					{title: 'University of San Francisco', location: {lat: 37.776632, lng: -122.450864}},
+					{title: 'University of California, Berkeley', location: {lat: 37.871467, lng: -122.258915}},
+					{title: 'Stanford University', location: {lat: 37.426385,  lng: -122.168552}},
+					{title: 'Northeastern University Silicon Valley', location: {lat: 37.256893, lng: -121.787221}},
+					{title: 'Carnegie Mellon University - Silicon Valley', location: {lat: 37.410445, lng: -122.059858}},
 		       
 					];
 	var largeInfowindow = new google.maps.InfoWindow();
@@ -58,13 +65,13 @@ function initMap(){               //init map
 
 
 function showListings() {
-      //var bounds = new google.maps.LatLngBounds();
+      var bounds = new google.maps.LatLngBounds();
       // Extend the boundaries of the map for each marker and display the marker
       for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(map);
-        //bounds.extend(markers[i].position);
+        bounds.extend(markers[i].position);
       }
-      //map.fitBounds(bounds);
+      map.fitBounds(bounds);
 }
 
 function hideListings() {
@@ -93,6 +100,9 @@ function hideListings() {
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     var wikiurl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
+    var wikiRequestTimeout = setTimeout(function(){
+    	infowindow.setContent('Fail tp get wikipedia resources');
+    },2000);
     $.ajax({
         url: wikiurl,
         dataType: "jsonp",
@@ -102,11 +112,15 @@ function populateInfoWindow(marker, infowindow) {
             var url = 'http://en.wikipedia.org/wiki/' + articleStr;
             if (infowindow.marker != marker) {
                 infowindow.marker = marker;
-                infowindow.setContent('<div>' + marker.title + '</div>' + '<li><a href = "' + url + '">' + articleStr + '</a></li>');
+                if (articleStr == null) {
+                	infowindow.setContent('<div>' + marker.title + '</div>' + 'Fail to get wikipedia resources');
+                } else {
+                	infowindow.setContent('<div>' +  '</div>' + '<a href = "' + url + '">' + articleStr + '</a>');
+                }
                 infowindow.open(map, marker);
-                // Make sure the marker property is cleared if the infowindow is closed.
-               
+                // Make sure the marker property is cleared if the infowindow is closed.            
             }
+            clearTimeout(wikiRequestTimeout);
         }
     });
      infowindow.addListener('closeclick', function() {
