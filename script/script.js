@@ -12,7 +12,7 @@ function initMap(){               //init map
 
 	//marker color
 	var defaultIcon = makeMarkerIcon('FF4040');
-	var highlightedIcon = makeMarkerIcon('FFFF24');
+	var highlightedIcon = makeMarkerIcon('00CD00');
 
 
 	//location
@@ -65,18 +65,22 @@ function initMap(){               //init map
 		// }
 		// var titleID = findId();
 		elem.addEventListener('click', function(){  
-			populateInfoWindow(markers[index], largeInfowindow);  
-			 
+			populateInfoWindow(markers[index], largeInfowindow);  	 
 		});
+
+		elem.addEventListener('mouseover', function() {
+            markers[index].setIcon(highlightedIcon);
+            elem.style.background = "#696969";
+         });
+
+        elem.addEventListener('mouseout', function() {
+            markers[index].setIcon(defaultIcon);
+            elem.style.background = "#05090c";
+         });
+
         document.getElementById('marker-list').appendChild(elem);
       }
-
       createEle(i);
-
-
-
-     	
-		
 	 // ==================================================
 		
 		marker.addListener('click', function(){ 
