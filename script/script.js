@@ -8,17 +8,14 @@ function initMap(){               //init map
 	});
 
 
-	// var myPlace = {lat:40.6502, lng:-74.1322};             //here is the plave I wanna show
-	// var marker = new google.maps.Marker({        //Add a marker to the place
-	// 	position: myPlace,
-	// 	map:map, 
-	// 	title: 'Hello World'           //title will show when cursor hover
-	// });
+
+
+	//marker color
 	var defaultIcon = makeMarkerIcon('FF4040');
 	var highlightedIcon = makeMarkerIcon('FFFF24');
 
 
-
+	//location
 	var locations = [{title: 'University of California, Santa Cruz', location: {lat: 36.9738893, lng: -122.0771595}},
 					{title: 'San Jose State University', location: {lat: 37.335103, lng:-121.877357}},
 					{title: 'Santa Clara University', location: {lat: 37.349649,  lng: -121.939213}},
@@ -33,6 +30,8 @@ function initMap(){               //init map
 	//var bounds = new google.maps.LatLngBounds();
 
 	for (var i = 0; i < locations.length; i++) {
+		
+
 		var position = locations[i].location;
 		var title = locations[i].title;
 
@@ -45,7 +44,40 @@ function initMap(){               //init map
 			id:i        //i not 1
 		});
 
+
+
+
 		markers.push(marker);
+      
+      // ==================================================
+      	function createEle (index) {
+      	var elem = document.createElement('li');
+			//var title = locations[i].title;
+		elem.textContent = title;
+		// var findId = function() {
+		// 	var len = locations.length;
+		// 	for (var i = 0; i < len; i++) {
+		// 	if (locations[i].title == title) {
+		// 		return i;
+		// 	}
+		// }
+		// 	return -1;
+		// }
+		// var titleID = findId();
+		elem.addEventListener('click', function(){  
+			populateInfoWindow(markers[index], largeInfowindow);  
+			 
+		});
+        document.getElementById('marker-list').appendChild(elem);
+      }
+
+      createEle(i);
+
+
+
+     	
+		
+	 // ==================================================
 		
 		marker.addListener('click', function(){ 
 			populateInfoWindow(this, largeInfowindow);  
@@ -59,8 +91,19 @@ function initMap(){               //init map
             this.setIcon(defaultIcon);
          });
 	}
+
 	document.getElementById('show-listings').addEventListener('click',showListings);
 	document.getElementById('hide-listings').addEventListener('click',hideListings);
+}
+
+function findId(locations, title) {
+	var len = locations.length;
+	for (var i = 0; i < len; i++) {
+		if (locations[i].indexOf(title) > -1) {
+			return i
+		}
+	}
+	return -1;
 }
 
 
@@ -80,23 +123,8 @@ function hideListings() {
 	}
 }
 
-	// var infowindow = new google.maps.InfoWindow({       //here is the info and it's content
-	// 	content: 'do you know'
-	// });
-	// marker.addListener('click', function(){  //Need a listener for info
-	// 	infowindow.open(map, marker);  //We need give infowindow a place to open
-	// });
-// function populateInfoWindow(marker, infowindow) {
-// 	if(infowindow.marker != marker) {
-// 		infowindow.marker = marker;
-// 		infowindow.setContent('<div>'+ marker.title + '</div>');
-// 		infowindow.open(map, marker);
 
-// 		infowindow.addListener('closeclick', function(){
-// 			infowindow.setMarker(null);
-// 		})
-// 	}
-// }
+// info window
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     var wikiurl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
@@ -128,7 +156,7 @@ function populateInfoWindow(marker, infowindow) {
                 });
 }
 
-
+//set marker style
 function makeMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
           'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
