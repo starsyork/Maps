@@ -1,39 +1,66 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+.header__menu {
+  display: none;
+}
+
+@media screen and (min-width: 550px) {
+  .title2{
+  display: none;
+}
+}
+
+
 @media screen and (max-width: 549px) {
-  .header__logo {
-    height: 48px;
-    margin-right: 0.5em;
+  #map {
+    left:0;
+    top:50px;
   }
-  .header__title {
-    margin-left: 0;
-    font-size: 2em;
-    vertical-align: bottom; 
+
+  .title2 {
+    width:550px;
+    height:50px;
+    background-color: #05090c;
+    padding-top: 10px;
   }
-  .nav {
+
+  .title1{
+    display: none;
+  }
+  
+  .side-bar {
     z-index: 10;
-    background-color: #fff;
-    width: 300px;
+    
+    width: 350px;
+    height: 300px;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
-    -webkit-transform: translate(-300px, 0);
-    transform: translate(-300px, 0);
+    -webkit-transform: translate(0, -300px);
+    transform: translate(0, -300px);
     /* Optionally, we animate the drawer. */
     transition: transform 0.3s ease;
   }
-  .nav.open {
+  .side-bar.open {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
-  .nav__item {
+/*  .list {
     display: list-item;
     border-bottom: 1px solid #E0E0E0;
     width: 100%;
     text-align: left;
-  }
-  .header__menu {
+  }*/
+  #menu {
     display: inline-block;
     position: absolute;
     right: 0;
-    padding: 1em;
+    padding-top: 10px;
+    padding-right: 10px;
   }
   .header__menu svg {
     width: 32px;

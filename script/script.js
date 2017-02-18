@@ -58,12 +58,14 @@ function initMap() { //init map
         },
 
         enableDetails: function(marker) {
-        	marker.marker.setIcon(highlightedIcon);
+            marker.marker.setIcon(highlightedIcon);
         },
 
         disableDetails: function(marker) {
-        	marker.marker.setIcon(defaultIcon);
+            marker.marker.setIcon(defaultIcon);
         }
+
+
     };
 
     viewModel.locations = ko.dependentObservable(function() {
@@ -105,13 +107,13 @@ function initMap() { //init map
         viewModel.attachMarkers(markers);
 
         // ============Create element by==============================
-        //     	function createEle (index) {
-        //     	var elem = document.createElement('li');
-        // 	//var title = locations[i].title;
+        //      function createEle (index) {
+        //      var elem = document.createElement('li');
+        //  //var title = locations[i].title;
         // elem.textContent = title;
 
         // elem.addEventListener('click', function(){  
-        // 	populateInfoWindow(markers[index], largeInfowindow);  	 
+        //  populateInfoWindow(markers[index], largeInfowindow);     
         // });
 
         // elem.addEventListener('mouseover', function() {
@@ -130,7 +132,7 @@ function initMap() { //init map
         // ==================================================
 
         marker.addListener('click', function(){ 
-        	populateInfoWindow(this, largeInfowindow);  
+            populateInfoWindow(this, largeInfowindow);  
         });
 
         marker.addListener('mouseover', function() {
@@ -140,20 +142,34 @@ function initMap() { //init map
         marker.addListener('mouseout', function() {
             this.setIcon(defaultIcon);
         });
+
     }
 
     // document.getElementById('show-listings').addEventListener('click',showListings);
     // document.getElementById('hide-listings').addEventListener('click',hideListings);
+       var menu = document.querySelector('#menu');
+      var maparea = document.querySelector('#map');
+      var drawer = document.querySelector('.side-bar');
+      
+
+      menu.addEventListener('click', function(e) {
+        drawer.classList.toggle('open');
+        e.stopPropagation();
+      });
+      maparea.addEventListener('click', function() {
+        drawer.classList.remove('open');
+      });
+     
 }
 
 // function findId(locations, title) {
-// 	var len = locations.length;
-// 	for (var i = 0; i < len; i++) {
-// 		if (locations[i].indexOf(title) > -1) {
-// 			return i
-// 		}
-// 	}
-// 	return -1;
+//  var len = locations.length;
+//  for (var i = 0; i < len; i++) {
+//      if (locations[i].indexOf(title) > -1) {
+//          return i
+//      }
+//  }
+//  return -1;
 // }
 
 
@@ -168,9 +184,9 @@ function initMap() { //init map
 // }
 
 // function hideListings() {
-// 	for (var i = 0; i < markers.length; i++) {
-// 		markers[i].setMap(null);
-// 	}
+//  for (var i = 0; i < markers.length; i++) {
+//      markers[i].setMap(null);
+//  }
 // }
 
 
