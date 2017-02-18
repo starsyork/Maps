@@ -53,8 +53,12 @@ li {
   list-style: none;
   padding-left: 20px;
 }
+ul {
+  padding-left: 0;
+}
 
-#marker-list {
+
+/*#marker-list {
   font-size: 12px;
   background: #05090c;
   height: 92%;
@@ -68,4 +72,8 @@ li {
     font-size: 16px;
     margin: 0 0 10px 0;
     
+}*/
+
+.content {
+  padding-left: 0;
 }

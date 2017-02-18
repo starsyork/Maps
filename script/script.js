@@ -26,6 +26,23 @@ function initMap(){               //init map
 					{title: 'Carnegie Mellon University - Silicon Valley', location: {lat: 37.410445, lng: -122.059858}},
 		       
 					];
+
+
+	// Knockout
+	var viewModel = {
+        query: ko.observable('')
+    };
+
+    viewModel.locations = ko.dependentObservable(function() {
+        var search = this.query().toLowerCase();
+        return ko.utils.arrayFilter(locations, function(place) {
+            return place.title.toLowerCase().indexOf(search) >= 0;
+        });
+    }, viewModel);
+
+    ko.applyBindings(viewModel);
+
+
 	var largeInfowindow = new google.maps.InfoWindow();
 	//var bounds = new google.maps.LatLngBounds();
 
@@ -49,38 +66,29 @@ function initMap(){               //init map
 
 		markers.push(marker);
       
-      // ==================================================
-      	function createEle (index) {
-      	var elem = document.createElement('li');
-			//var title = locations[i].title;
-		elem.textContent = title;
-		// var findId = function() {
-		// 	var len = locations.length;
-		// 	for (var i = 0; i < len; i++) {
-		// 	if (locations[i].title == title) {
-		// 		return i;
-		// 	}
-		// }
-		// 	return -1;
-		// }
-		// var titleID = findId();
-		elem.addEventListener('click', function(){  
-			populateInfoWindow(markers[index], largeInfowindow);  	 
-		});
+      // ============Create element by JS==============================
+  //     	function createEle (index) {
+  //     	var elem = document.createElement('li');
+		// 	//var title = locations[i].title;
+		// elem.textContent = title;
+	
+		// elem.addEventListener('click', function(){  
+		// 	populateInfoWindow(markers[index], largeInfowindow);  	 
+		// });
 
-		elem.addEventListener('mouseover', function() {
-            markers[index].setIcon(highlightedIcon);
-            elem.style.background = "#696969";
-         });
+		// elem.addEventListener('mouseover', function() {
+  //           markers[index].setIcon(highlightedIcon);
+  //           elem.style.background = "#696969";
+  //        });
 
-        elem.addEventListener('mouseout', function() {
-            markers[index].setIcon(defaultIcon);
-            elem.style.background = "#05090c";
-         });
+  //       elem.addEventListener('mouseout', function() {
+  //           markers[index].setIcon(defaultIcon);
+  //           elem.style.background = "#05090c";
+  //        });
 
-        document.getElementById('marker-list').appendChild(elem);
-      }
-      createEle(i);
+  //       document.getElementById('marker-list').appendChild(elem);
+  //     }
+  //     createEle(i);
 	 // ==================================================
 		
 		marker.addListener('click', function(){ 

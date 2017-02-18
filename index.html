@@ -2,8 +2,10 @@
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="script/libs/jquery.js"></script>
     <script type="text/javascript" src="script/script.js"></script>
-    <script src="script/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="script/libs/knockout-3.4.1.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_8iOlfqwAKLzkbUnXTVlThYvMLvsgNg&callback=initMap"></script>
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     <meta charset="UTF-8">
@@ -19,12 +21,21 @@
                 <input type="button" id="hide-listings" value="Hide Listings">
             </div>
         </div>
-        <ul id="marker-list"></ul>
+        <!-- <ul id="marker-list"></ul> -->
+        <form action="#">
+            <input placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+        </form>
+        <div class="content">
+            <ul data-bind="template: {name:'place', foreach:locations}">
+            </ul>
+        </div>
+        <script type="text/html" id="place">
+            <li>
+                <strong data-bind="text: title"></strong>
+            </li>
+        </script>
         <div id='map'></div>
     </div>
 </body>
 
 </html>
-
-
-
