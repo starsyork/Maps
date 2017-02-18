@@ -15,17 +15,16 @@
 
 <body>
     <div class="container">
-    <div class="side-bar">
         <div class="options-box">
             <h1>Some Universities in Bay Area</h1>
             <div class="button">
-                <input type="button" id="show-listings" value="Show Listings" data-bind="click: $root.showAll">
-                <input type="button" id="hide-listings" value="Hide Listings" data-bind="click: $root.hideAll">
+                <input type="button" id="show-listings" value="Show Listings">
+                <input type="button" id="hide-listings" value="Hide Listings">
             </div>
         </div>
         <!-- <ul id="marker-list"></ul> -->
-        <form action="#" id="searchbox">
-            <input class="search-box" placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+        <form action="#">
+            <input placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
         </form>
         <div class="content">
             <ul data-bind="template: {name:'place', foreach:locations}">
@@ -34,9 +33,9 @@
         <script type="text/html" id="place">
             <li class="list">
                 <strong id="place" data-bind="text:title, click: $root.activeMarker, event: { mouseover: $root.enableDetails, mouseout: $root.disableDetails }"></strong>
+           
             </li>
         </script>
-        </div>
         <div id='map'></div>
     </div>
 </body>

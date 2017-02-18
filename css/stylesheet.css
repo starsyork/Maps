@@ -7,8 +7,8 @@ body {
 }
 
 .container {
-    position: relative;
     height: 100%;
+    position: relative;
 }
 
 input {
@@ -16,10 +16,10 @@ input {
 }
 
 h1 {
+    color: #e9efef;
     font-size: 22px;
     margin: 0 0 10px 0;
     text-align: center;
-    color: #e9efef;
 }
 
 #hide-listings,
@@ -28,39 +28,35 @@ h1 {
 }
 
 #map {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 362px;
+    bottom: 0px;
     height: 100%;
+    left: 362px;
+    position: absolute;
+    right: 0px;
 }
 
 .options-box {
-    line-height: 35px;
-    width: 100%;
-    /*border: 1px solid #999;*/
-    height: 8%;
-    padding: 10px 0px 30px 0;
-    text-align: left;
     background: #05090c;
+    /*border: 1px solid #999;*/
+   
+    height: 8%;
+    line-height: 35px;
+    padding: 10px 10px 30px 0px;
+    text-align: left;
+    width: 370px;
 }
-
 .button {
-    padding-left: 50px;
+  padding-left: 50px;
 }
 
 li {
-    padding-left: 20px;
-    list-style: none;
+  list-style: none;
+  padding-left: 20px;
+}
+ul {
+  padding-left: 0;
 }
 
-ul {
-    padding-left: 0;
-}
-.search-box {
-  width: 50%;
-  margin-left: 20px;
-}
 
 /*#marker-list {
   font-size: 12px;
@@ -78,17 +74,6 @@ ul {
     
 }*/
 
-.side-bar {
-    width: 365px;
-    height: 100%;
-    background: #05090c;
-}
-
-.list {
-    font-size: 16px;
-    color: #9ea3a3;
-}
-
 .content {
-    padding-left: 0;
+  padding-left: 0;
 }
