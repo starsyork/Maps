@@ -8,6 +8,7 @@
     <script type="text/javascript" src="script/libs/knockout-3.4.1.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_8iOlfqwAKLzkbUnXTVlThYvMLvsgNg&callback=initMap"></script>
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/responsive.css"> -->
     <meta charset="UTF-8">
     <title>Maps</title>
 </head>
@@ -32,7 +33,7 @@
         </div>
         <script type="text/html" id="place">
             <li class="list">
-                <strong data-bind="text:title, click: $root.activeMarker, event: { mouseover: $root.enableDetails, mouseout: $root.disableDetails }"></strong>
+                <strong id="place" data-bind="text:title, click: $root.activeMarker, event: { mouseover: $root.enableDetails, mouseout: $root.disableDetails }"></strong>
             </li>
         </script>
         </div>
