@@ -12,6 +12,7 @@
 @media only screen and (min-width: 550px) {
   .title2{
   display: none;
+
 }
 }
 
@@ -26,28 +27,38 @@
     width:550px;
     height:50px;
     background-color: #05090c;
-    padding-top: 10px;
+    padding-top: 15px;
+    font-size: 15px;
+  
   }
 
   .title1{
     display: none;
   }
+
+  .list {
+    font-size: 12px;
+  }
+
+  li {
+    padding-left: 10px;
+  }
   
   .side-bar {
     z-index: 10;
     
-    width: 350px;
-    height: 300px;
+    width: 260px;
+    height: 250px;
     position: absolute;
     /* This trasform moves the drawer off canvas. */
-    -webkit-transform: translate(0, -300px);
-    transform: translate(0, -300px);
+    -webkit-transform: translate(-300px, 50px);
+    transform: translate(-300px, 50px);
     /* Optionally, we animate the drawer. */
     transition: transform 0.3s ease;
   }
   .side-bar.open {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+    -webkit-transform: translate(0, 50px);
+    transform: translate(0, 50px);
   }
 /*  .list {
     display: list-item;
