@@ -39,6 +39,8 @@ function initMap() { //init map
         activeMarker: function(marker) {
             console.log(marker);
             populateInfoWindow(marker.marker, largeInfowindow);
+            marker.marker.setAnimation(google.maps.Animation.BOUNCE);
+            stopAnimation(marker.marker);
         },
 
         showAll: function() {
@@ -132,7 +134,9 @@ function initMap() { //init map
         // ==================================================
 
         marker.addListener('click', function(){ 
-            populateInfoWindow(this, largeInfowindow);  
+            populateInfoWindow(this, largeInfowindow); 
+            this.setAnimation(google.maps.Animation.BOUNCE);
+            stopAnimation(this);
         });
 
         marker.addListener('mouseover', function() {
@@ -142,6 +146,7 @@ function initMap() { //init map
         marker.addListener('mouseout', function() {
             this.setIcon(defaultIcon);
         });
+
 
     }
 
@@ -198,29 +203,31 @@ function populateInfoWindow(marker, infowindow) {
 
     
     var wikiurl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
-    var wikiRequestTimeout = setTimeout(function() {
-        infowindow.setContent('Fail to get wikipedia resources');
-    }, 2000);
     $.ajax({
         url: wikiurl,
         dataType: "jsonp",
-        success: function(response) {
+        timout: 8000
+    }).fail(function() {
+        infowindow.setContent('<div>' + 'Please Check Your Connection' + '</div>');
+        infowindow.open(map, marker);
+    }).done(function(response) {
             var articleList = response[1];
             articleStr = articleList[0];
             var url = 'http://en.wikipedia.org/wiki/' + articleStr;
             if (infowindow.marker != marker) {
                 infowindow.marker = marker;
                 if (articleStr == null) {
-                    infowindow.setContent('<div>' + marker.title + '</div>' + 'Fail to get wikipedia resources');
+                    infowindow.setContent('<div>' + marker.title + '</div>' + 'Oops, no such wiki');
                 } else {
                     infowindow.setContent('<div>' + '</div>' + '<a href = "' + url + '">' + articleStr + '</a>');
                 }
                 infowindow.open(map, marker);
                 // Make sure the marker property is cleared if the infowindow is closed.            
             }
-            clearTimeout(wikiRequestTimeout);
-        }
-    });
+            // clearTimeout(wikiRequestTimeout);
+        });
+
+
     infowindow.addListener('closeclick', function() {
         infowindow.setMarker = null;
     });
@@ -240,4 +247,15 @@ function makeMarkerIcon(markerColor) {
         new google.maps.Point(10, 34),
         new google.maps.Size(21, 34));
     return markerImage;
+}
+
+
+function stopAnimation(marker) {
+    setTimeout(function () {
+        marker.setAnimation(null);
+    }, 1500);
+}
+
+function errorHandling() {
+    alert('Please Check Your Internet Connection!');
 }
