@@ -7,48 +7,70 @@
     <script type="text/javascript" src="script/script.js"></script>
     <script type="text/javascript" src="script/libs/knockout-3.4.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_8iOlfqwAKLzkbUnXTVlThYvMLvsgNg&callback=initMap" onerror="errorHandling()"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <!--  <link rel="stylesheet" type="text/css" href="css/responsive.css"> -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy_8iOlfqwAKLzkbUnXTVlThYvMLvsgNg&callback=initMap" onerror="errorHandling()"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Maps</title>
 </head>
 
 <body>
+
     <div class="container">
-    <h1 class="title2">Some Universities in Bay Area</h1>
-        <a id="menu" class="header__menu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z" />
-            </svg>
-        </a>
-        <div class="side-bar">
-            <div class="options-box">
-                <h1 class="title1">Some Universities in Bay Area</h1>
-                <div class="button">
-                    <input class="btnbtn-default" type="button" id="show-listings" value="Show Listings" data-bind="click: $root.showAll">
-                    <input class="btnbtn-default" type="button" id="hide-listings" value="Hide Listings" data-bind="click: $root.hideAll">
+      <div class="navbar navbar-inverse" role="navigation" style="margin-bottom:0">
+
+          <div class="navbar-header">
+              <a href="##" class="navbar-brand">Maps</a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li><a href="##" data-bind="click: $root.showAll">Show ALL</a></li>
+              <li><a href="##" data-bind="click: $root.hideAll">Hide All</a></li>
+          </ul>
+      </div>
+        <div class="row" id="map-body">
+            <div class="col-md-4">
+                <div class="side-bar">
+                    <div class="options-box">
+                        <h1 class="title1">Explore Universities</h1>
+                        <form action="#" id="searchbox">
+                            <input class="search-box form-control input-sm" placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+                        </form>
+                        <div class="content">
+                            <ul class="list-unstyled" data-bind="template: {name:'place', foreach:locations}">
+                            </ul>
+                        </div>
+                        <script type="text/html" id="place">
+                            <li class="list">
+                                <strong data-bind="text:title, click: $root.activeMarker, event: { mouseover: $root.enableDetails, mouseout: $root.disableDetails }"></strong>
+                            </li>
+                        </script>
+                    </div>
                 </div>
             </div>
-            <!-- <ul id="marker-list"></ul> -->
-            <form action="#" id="searchbox">
-                <input class="search-box form-control input-sm" placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
-            </form>
-            <div class="content">
-                <ul data-bind="template: {name:'place', foreach:locations}">
-                </ul>
+            <div id='map' class="col-md-8">
+
             </div>
-            <script type="text/html" id="place">
-                <li class="list">
-                    <strong data-bind="text:title, click: $root.activeMarker, event: { mouseover: $root.enableDetails, mouseout: $root.disableDetails }"></strong>
-                </li>
-            </script>
         </div>
-        <div id='map'></div>
+        <div class="navbar navbar-default " role="navigation">
+
+            <div class="navbar-header">
+                <a href="##" class="navbar-brand">Map</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="##"></a></li>
+                <li><a href="##"></a></li>
+                <li><a href="##"></a></li>
+                <li><a href="##"></a></li>
+                <li><a href="##">Contact Me</a></li>
+            </ul>
+        </div>
     </div>
+
+
 </body>
 
 </html>

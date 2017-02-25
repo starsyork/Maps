@@ -1,7 +1,7 @@
-.container {
+/*.container {
     display: flex;
     flex-wrap: wrap;
-}
+}*/
 
 .header__menu {
     display: none;
