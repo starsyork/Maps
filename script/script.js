@@ -7,8 +7,7 @@ function initMap() { //init map
         zoom: 9
     });
 
-
-
+    
 
     //marker color
     var defaultIcon = makeMarkerIcon('FF4040');
@@ -51,6 +50,12 @@ function initMap() { //init map
                 bounds.extend(markers[i].position);
             }
             map.fitBounds(bounds);
+        },
+
+        hideAll: function() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
         },
 
         hideAll: function() {
@@ -114,8 +119,8 @@ function initMap() { //init map
         //  //var title = locations[i].title;
         // elem.textContent = title;
 
-        // elem.addEventListener('click', function(){  
-        //  populateInfoWindow(markers[index], largeInfowindow);     
+        // elem.addEventListener('click', function(){
+        //  populateInfoWindow(markers[index], largeInfowindow);
         // });
 
         // elem.addEventListener('mouseover', function() {
@@ -133,8 +138,8 @@ function initMap() { //init map
         //     createEle(i);
         // ==================================================
 
-        marker.addListener('click', function(){ 
-            populateInfoWindow(this, largeInfowindow); 
+        marker.addListener('click', function(){
+            populateInfoWindow(this, largeInfowindow);
             this.setAnimation(google.maps.Animation.BOUNCE);
             stopAnimation(this);
         });
@@ -155,7 +160,7 @@ function initMap() { //init map
        var menu = document.querySelector('#menu');
       var maparea = document.querySelector('#map');
       var drawer = document.querySelector('.side-bar');
-      
+
 
       menu.addEventListener('click', function(e) {
         drawer.classList.toggle('open');
@@ -164,7 +169,7 @@ function initMap() { //init map
       maparea.addEventListener('click', function() {
         drawer.classList.remove('open');
       });
-     
+
 }
 
 // function findId(locations, title) {
@@ -198,10 +203,10 @@ function initMap() { //init map
 // info window
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
-    
 
 
-    
+
+
     var wikiurl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + marker.title + '&format=json&callback=wikiCallback';
     $.ajax({
         url: wikiurl,
@@ -222,7 +227,7 @@ function populateInfoWindow(marker, infowindow) {
                     infowindow.setContent('<div>' + '</div>' + '<a href = "' + url + '">' + articleStr + '</a>');
                 }
                 infowindow.open(map, marker);
-                // Make sure the marker property is cleared if the infowindow is closed.            
+                // Make sure the marker property is cleared if the infowindow is closed.
             }
             // clearTimeout(wikiRequestTimeout);
         });
